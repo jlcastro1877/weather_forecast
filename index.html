@@ -4,9 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather Dashboard</title>
+    <link rel="stylesheet" href="./assets/css/index.css">
 </head>
 <body>
-    <h1>Teste</h1>
+    
+    <header class="header">
+      <h1>Weather Dashboard</h1>
+    </header>
+
+    <main class="main_dash">
+        <div class="display">
+            <section class="display_city_search">
+                <div>    
+                    <form>
+                        <input type="text" class="cityInput" placeholder="Enter City">
+                        <button type="submit">Get Weather</button>
+                    </form>
+                </div>   
+                <div class="card">
+                    <h1 class="cityDisplay">Fortaleza</h1>
+                    <p class="tempDisplay">90°F</p>
+                    <p class="humiditDisplay">Humidit: 75%</p>
+                    <p class="weatherEmoji">☀️</p>
+                    <p class="errorDisplay">Please enter a city</p>
+                </div>
+            </section>
+        </div>
+    </main>
+    <script src="./assets/js/script.js"></script>
 </body>
 </html>
 
