@@ -1,8 +1,12 @@
+//Catch the inputs and store them in variables
 const weatherForm = document.querySelector(".weatherForm");
 const cityInput = document.querySelector(".cityInput");
 const card = document.querySelector(".card");
 const apiKey = "77a60fde9123837e97948e31963ac6dd";
 
+//My submit button to get weather calling a function
+//I can handle error as well in case the city is empty
+//if everything is ok I call getWeatherData with the city name
 weatherForm.addEventListener("submit", async (event) => {
   event.preventDefault();
 
@@ -21,6 +25,8 @@ weatherForm.addEventListener("submit", async (event) => {
   }
 });
 
+//Call the Api passing the city name and the api key using await to force wait for the response.
+//if not ok I throw the error to the user otherwise I return the response with json format
 async function getWeatherData(city) {
   const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
 
@@ -33,6 +39,7 @@ async function getWeatherData(city) {
   return await response.json();
 }
 
+//Function to display the weather data. Where I use object destructuring
 function displayWeatherInfo(data) {
   const {
     name: city,
@@ -42,7 +49,7 @@ function displayWeatherInfo(data) {
 
   card.textContent = "";
   card.style.display = "flex";
-
+  //HTML Elements on the class card.
   const cityDisplay = document.createElement("h1");
   const tempDisplay = document.createElement("p");
   const humidityDisplay = document.createElement("p");
@@ -50,8 +57,8 @@ function displayWeatherInfo(data) {
   const weatherEmoji = document.createElement("p");
 
   cityDisplay.textContent = city;
-  tempDisplay.textContent = `${(temp - 273.15).toFixed(1)}°C`;
-  // tempDisplay.textContent = `${((temp - 273.15) * (9 / 5) + 32).toFixed(1)}°F`;
+  // tempDisplay.textContent = `${(temp - 273.15).toFixed(1)}°C`;
+  tempDisplay.textContent = `${((temp - 273.15) * (9 / 5) + 32).toFixed(1)}°F`;
   humidityDisplay.textContent = `Humidity: ${humidity}%`;
   descDisplay.textContent = description;
   weatherEmoji.textContent = getWeatherEmoji(id);
@@ -69,6 +76,7 @@ function displayWeatherInfo(data) {
   card.appendChild(weatherEmoji);
 }
 
+//Emoji function using weather code for each emoji
 function getWeatherEmoji(weatherId) {
   switch (true) {
     case weatherId >= 200 && weatherId < 300:
@@ -90,6 +98,7 @@ function getWeatherEmoji(weatherId) {
   }
 }
 
+//If I got some error I display it to the user.
 function displayError(message) {
   const errorDisplay = document.createElement("p");
   errorDisplay.textContent = message;
