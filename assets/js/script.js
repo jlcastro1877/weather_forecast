@@ -63,12 +63,14 @@ function displayWeatherInfo(data) {
   descDisplay.textContent = description;
   weatherEmoji.textContent = getWeatherEmoji(id);
 
+  //Add css class
   cityDisplay.classList.add("cityDisplay");
   tempDisplay.classList.add("tempDisplay");
   humidityDisplay.classList.add("humidityDisplay");
   descDisplay.classList.add("descDisplay");
   weatherEmoji.classList.add("weatherEmoji");
 
+  //Append to next child
   card.appendChild(cityDisplay);
   card.appendChild(tempDisplay);
   card.appendChild(humidityDisplay);
