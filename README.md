@@ -12,3 +12,4 @@ Below the Weather Dashboard header are the 5 most recently searched cities.
 
 ![image](https://github.com/jlcastro1877/weather_forecast/assets/161878013/7306a626-d346-4b4a-b09a-f0f4e247fced)
 
+![image](https://github.com/jlcastro1877/weather_forecast/assets/161878013/d4860f7c-0757-48f4-9f88-cd054bf70ece)
