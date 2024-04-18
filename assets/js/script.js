@@ -196,50 +196,50 @@ async function displayWeatherInfoGeo(dataGeo) {
 
     // name, date, wind, temp, hum, id
 
-    cityCard1.textContent = weatherDataItems[6]; //Name
+    // cityCard1.textContent = weatherDataItems[6]; //Name
     dateCard1.textContent = weatherDataItems[7]; //Date
-    windCard1.textContent = weatherDataItems[8]; //Wind
+    windCard1.textContent = `Wind: ${weatherDataItems[8]}`; //Wind
     tempCard1.textContent = `${
       //Temp
       ((weatherDataItems[9] - 273.15) * (9 / 5) + 32).toFixed(1)
     }°F`;
-    humCard1.textContent = weatherDataItems[10];
+    humCard1.textContent = `Humidity: ${weatherDataItems[10]}%`;
 
-    cityCard2.textContent = weatherDataItems[12]; //Name
+    // cityCard2.textContent = weatherDataItems[12]; //Name
     dateCard2.textContent = weatherDataItems[13]; //Date
-    windCard2.textContent = weatherDataItems[14]; //Wind
+    windCard2.textContent = `Wind: ${weatherDataItems[14]}`; //Wind
     tempCard2.textContent = `${
       //Temp
       ((weatherDataItems[15] - 273.15) * (9 / 5) + 32).toFixed(1)
     }°F`;
-    humCard2.textContent = weatherDataItems[16];
+    humCard2.textContent = `Humidity: ${weatherDataItems[16]}%`;
 
-    cityCard3.textContent = weatherDataItems[18]; //Name
+    // cityCard3.textContent = weatherDataItems[18]; //Name
     dateCard3.textContent = weatherDataItems[19]; //Date
-    windCard3.textContent = weatherDataItems[20]; //Wind
+    windCard3.textContent = `Wind: ${weatherDataItems[20]}`; //Wind
     tempCard3.textContent = `${
       //Temp
       ((weatherDataItems[21] - 273.15) * (9 / 5) + 32).toFixed(1)
     }°F`;
-    humCard3.textContent = weatherDataItems[22];
+    humCard3.textContent = `Humidity: ${weatherDataItems[22]}%`;
 
-    cityCard4.textContent = weatherDataItems[24]; //Name
+    // cityCard4.textContent = weatherDataItems[24]; //Name
     dateCard4.textContent = weatherDataItems[25]; //Date
-    windCard4.textContent = weatherDataItems[26]; //Wind
+    windCard4.textContent = `Wind: ${weatherDataItems[26]}`;
     tempCard4.textContent = `${
       //Temp
       ((weatherDataItems[27] - 273.15) * (9 / 5) + 32).toFixed(1)
     }°F`;
-    humCard4.textContent = weatherDataItems[28];
+    humCard4.textContent = `Humidity: ${weatherDataItems[28]}%`;
 
-    cityCard5.textContent = weatherDataItems[30]; //Name
+    // cityCard5.textContent = weatherDataItems[30]; //Name
     dateCard5.textContent = weatherDataItems[31]; //Date
-    windCard5.textContent = weatherDataItems[32]; //Wind
+    windCard5.textContent = `Wind: ${weatherDataItems[32]}`;
     tempCard5.textContent = `${
       //Temp
       ((weatherDataItems[33] - 273.15) * (9 / 5) + 32).toFixed(1)
     }°F`;
-    humCard5.textContent = weatherDataItems[34];
+    humCard5.textContent = `Humidity: ${weatherDataItems[34]}%`;
   }
 
   //If I got some error I display it to the user.

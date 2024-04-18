@@ -138,3 +138,27 @@ p {
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
   overflow: hidden;
 }
+
+.weather-historic-container {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.dateCard {
+  text-align: center;
+  font-weight: bold;
+}
+
+.tempCard {
+  text-align: center;
+  font-weight: bold;
+}
+
+.humCard {
+  text-align: center;
+  font-weight: bold;
+}
+
+.windCard {
+  text-align: center;
+  font-weight: bold;
+}
