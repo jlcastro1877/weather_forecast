@@ -62,16 +62,21 @@ async function displayWeatherInfoGeo(dataGeo) {
   function displayWeatherInfo(data) {
     const dataInfo = [];
 
+    console.log(data);
+    console.log(data.list[0].weather[0].id);
+
     for (let i = 0; i < 40; i++) {
       let date = data.list[i].dt_txt;
       date = date.split(" ")[0];
+
       if (!dataInfo.includes(date)) {
         dataInfo.push(
           data.city.name,
           date,
           data.list[i].wind.speed,
           data.list[i].main.temp,
-          data.list[1].main.humidity
+          data.list[i].main.humidity,
+          data.list[i].weather[0].id
         );
       }
     }
@@ -83,19 +88,21 @@ async function displayWeatherInfoGeo(dataGeo) {
       dataInfo[1],
       dataInfo[2],
       dataInfo[3],
-      dataInfo[4]
+      dataInfo[4],
+      dataInfo[5]
     );
   }
 
-  function displayMainCard(name, date, wind, temp, hum) {
+  function displayMainCard(name, date, wind, temp, hum, id) {
     card.textContent = "";
     card.style.display = "flex";
-    //HTML Elements on the class card.
     const cityDisplay = document.createElement("h1");
     const tempDisplay = document.createElement("p");
     const humidityDisplay = document.createElement("p");
     const descDisplay = document.createElement("p");
     const weatherEmoji = document.createElement("p");
+    const windDisplay = document.createElement("p");
+    const dateDisplay = document.createElement("p");
 
     cityDisplay.textContent = name;
     // tempDisplay.textContent = `${(temp - 273.15).toFixed(1)}°C`;
@@ -103,47 +110,52 @@ async function displayWeatherInfoGeo(dataGeo) {
       1
     )}°F`;
     humidityDisplay.textContent = `Humidity: ${hum}%`;
-    // descDisplay.textContent = description;
-    // weatherEmoji.textContent = getWeatherEmoji("500");
+    windDisplay.textContent = `Wind: ${wind}`;
+    dateDisplay.textContent = `Date: ${date}`;
+    weatherEmoji.textContent = getWeatherEmoji(id);
 
     //Add css class
     cityDisplay.classList.add("cityDisplay");
     tempDisplay.classList.add("tempDisplay");
     humidityDisplay.classList.add("humidityDisplay");
+    windDisplay.classList.add("windDisplay");
+    dateDisplay.classList.add("dateDisplay");
     descDisplay.classList.add("descDisplay");
-    // weatherEmoji.classList.add("weatherEmoji");
+    weatherEmoji.classList.add("weatherEmoji");
 
     //Append to next child
     card.appendChild(cityDisplay);
     card.appendChild(tempDisplay);
     card.appendChild(humidityDisplay);
+    card.appendChild(windDisplay);
+    card.appendChild(dateDisplay);
     card.appendChild(descDisplay);
-    // card.appendChild(weatherEmoji);
+    card.appendChild(weatherEmoji);
   }
 
   // }
 
   // //Emoji function using weather code for each emoji
-  // function getWeatherEmoji(weatherId) {
-  //   switch (true) {
-  //     case weatherId >= 200 && weatherId < 300:
-  //       return "⛈️";
-  //     case weatherId >= 300 && weatherId < 400:
-  //       return "🌧️";
-  //     case weatherId >= 500 && weatherId < 600:
-  //       return "🌦️";
-  //     case weatherId >= 600 && weatherId < 700:
-  //       return "❄️";
-  //     case weatherId >= 700 && weatherId < 800:
-  //       return "🌁";
-  //     case weatherId === 800:
-  //       return "☀️";
-  //     case weatherId >= 801 && weatherId < 810:
-  //       return "☁️";
-  //     default:
-  //       return "❓";
-  //   }
-  // }
+  function getWeatherEmoji(weatherId) {
+    switch (true) {
+      case weatherId >= 200 && weatherId < 300:
+        return "⛈️";
+      case weatherId >= 300 && weatherId < 400:
+        return "🌧️";
+      case weatherId >= 500 && weatherId < 600:
+        return "🌦️";
+      case weatherId >= 600 && weatherId < 700:
+        return "❄️";
+      case weatherId >= 700 && weatherId < 800:
+        return "🌁";
+      case weatherId === 800:
+        return "☀️";
+      case weatherId >= 801 && weatherId < 810:
+        return "☁️";
+      default:
+        return "❓";
+    }
+  }
 
   //If I got some error I display it to the user.
   function displayError(message) {

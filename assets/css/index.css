@@ -92,6 +92,16 @@ p {
   margin-bottom: 25px;
 }
 
+.windDisplay {
+  font-weight: bold;
+  margin-bottom: 25px;
+}
+
+.dateDisplay {
+  font-weight: bold;
+  margin-bottom: 25px;
+}
+
 .descDisplay {
   font-style: italic;
   font-weight: bold;
