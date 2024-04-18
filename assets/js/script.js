@@ -2,7 +2,6 @@
 const weatherForm = document.querySelector(".weatherForm");
 const cityInput = document.querySelector(".cityInput");
 const card = document.querySelector(".card");
-
 const apiKey = "77a60fde9123837e97948e31963ac6dd";
 
 const cityCard1 = document.querySelector(".cityCard1");
@@ -35,6 +34,14 @@ const humCard5 = document.querySelector(".humCard5");
 const windCard5 = document.querySelector(".windCard5");
 const dateCard5 = document.querySelector(".dateCard5");
 
+const historic1 = document.querySelector(".city1");
+const historic2 = document.querySelector(".city2");
+const historic3 = document.querySelector(".city3");
+const historic4 = document.querySelector(".city4");
+const historic5 = document.querySelector(".city5");
+
+const historicCities = [];
+
 weatherForm.addEventListener("submit", async (event) => {
   event.preventDefault();
 
@@ -56,6 +63,21 @@ weatherForm.addEventListener("submit", async (event) => {
 
 async function getWeatherDataGeo(city) {
   const apiUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=${apiKey}`;
+
+  // historicCities.push(city);
+  // console.log(historicCities);
+
+  // //gravo no localstorage as cidades
+  const historic = {
+    cityHistoric: city,
+  };
+
+  historicCities.push(historic.cityHistoric);
+
+  // console.log("mostra o array");
+  console.log(historicCities);
+
+  // localStorage.setItem("historic", JSON.stringify(historic));
 
   const response = await fetch(apiUrl);
 
@@ -94,8 +116,8 @@ async function displayWeatherInfoGeo(dataGeo) {
   function displayWeatherInfo(data) {
     const dataInfo = [];
 
-    console.log(data);
-    console.log(data.list[0].weather[0].id);
+    // console.log(data);
+    // console.log(data.list[0].weather[0].id);
 
     for (let i = 0; i < 40; i++) {
       let date = data.list[i].dt_txt;
@@ -112,6 +134,8 @@ async function displayWeatherInfoGeo(dataGeo) {
         );
       }
     }
+
+    console.log(historicCities);
 
     displayMainCard(
       dataInfo[0],
@@ -149,6 +173,12 @@ async function displayWeatherInfoGeo(dataGeo) {
     dateDisplay.textContent = `Date: ${date}`;
     weatherEmoji.textContent = getWeatherEmoji(id);
 
+    historic1.textContent = historicCities[0];
+    historic2.textContent = historicCities[1];
+    historic3.textContent = historicCities[2];
+    historic4.textContent = historicCities[3];
+    historic5.textContent = historicCities[4];
+
     //Add css class
     cityDisplay.classList.add("cityDisplay");
     tempDisplay.classList.add("tempDisplay");
@@ -166,6 +196,8 @@ async function displayWeatherInfoGeo(dataGeo) {
     card.appendChild(dateDisplay);
     card.appendChild(descDisplay);
     card.appendChild(weatherEmoji);
+
+    cityDisplay.textContent = "";
   }
 
   // //Emoji function using weather code for each emoji
@@ -191,48 +223,47 @@ async function displayWeatherInfoGeo(dataGeo) {
   }
 
   function displayMainCardsItems(weatherDataItems) {
-    console.log("entrou nos items cards");
     console.log(weatherDataItems);
 
-    dateCard1.textContent = weatherDataItems[7];
-    windCard1.textContent = `Wind: ${weatherDataItems[8]}`;
+    dateCard1.textContent = weatherDataItems[1];
+    windCard1.textContent = `Wind: ${weatherDataItems[2]}`;
     tempCard1.textContent = `${(
+      (weatherDataItems[3] - 273.15) * (9 / 5) +
+      32
+    ).toFixed(1)}°F`;
+    humCard1.textContent = `Humidity: ${weatherDataItems[4]}%`;
+
+    dateCard2.textContent = weatherDataItems[7];
+    windCard2.textContent = `Wind: ${weatherDataItems[8]}`;
+    tempCard2.textContent = `${(
       (weatherDataItems[9] - 273.15) * (9 / 5) +
       32
     ).toFixed(1)}°F`;
-    humCard1.textContent = `Humidity: ${weatherDataItems[10]}%`;
+    humCard2.textContent = `Humidity: ${weatherDataItems[10]}%`;
 
-    dateCard2.textContent = weatherDataItems[13];
-    windCard2.textContent = `Wind: ${weatherDataItems[14]}`;
-    tempCard2.textContent = `${(
+    dateCard3.textContent = weatherDataItems[13];
+    windCard3.textContent = `Wind: ${weatherDataItems[14]}`;
+    tempCard3.textContent = `${(
       (weatherDataItems[15] - 273.15) * (9 / 5) +
       32
     ).toFixed(1)}°F`;
-    humCard2.textContent = `Humidity: ${weatherDataItems[16]}%`;
+    humCard3.textContent = `Humidity: ${weatherDataItems[16]}%`;
 
-    dateCard3.textContent = weatherDataItems[19];
-    windCard3.textContent = `Wind: ${weatherDataItems[20]}`;
-    tempCard3.textContent = `${(
+    dateCard4.textContent = weatherDataItems[19];
+    windCard4.textContent = `Wind: ${weatherDataItems[20]}`;
+    tempCard4.textContent = `${(
       (weatherDataItems[21] - 273.15) * (9 / 5) +
       32
     ).toFixed(1)}°F`;
-    humCard3.textContent = `Humidity: ${weatherDataItems[22]}%`;
+    humCard4.textContent = `Humidity: ${weatherDataItems[22]}%`;
 
-    dateCard4.textContent = weatherDataItems[25];
-    windCard4.textContent = `Wind: ${weatherDataItems[26]}`;
-    tempCard4.textContent = `${(
+    dateCard5.textContent = weatherDataItems[25];
+    windCard5.textContent = `Wind: ${weatherDataItems[26]}`;
+    tempCard5.textContent = `${(
       (weatherDataItems[27] - 273.15) * (9 / 5) +
       32
     ).toFixed(1)}°F`;
-    humCard4.textContent = `Humidity: ${weatherDataItems[28]}%`;
-
-    dateCard5.textContent = weatherDataItems[31];
-    windCard5.textContent = `Wind: ${weatherDataItems[32]}`;
-    tempCard5.textContent = `${(
-      (weatherDataItems[33] - 273.15) * (9 / 5) +
-      32
-    ).toFixed(1)}°F`;
-    humCard5.textContent = `Humidity: ${weatherDataItems[34]}%`;
+    humCard5.textContent = `Humidity: ${weatherDataItems[28]}%`;
   }
 
   //If I got some error I display it to the user.
