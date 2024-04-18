@@ -134,6 +134,11 @@ p {
   gap: 25px;
 }
 
+.historicCity {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+}
+
 .card-content {
   background: linear-gradient(180deg, hsl(210, 100%, 75%), hsl(40, 100%, 75%));
   border-radius: 10px;
