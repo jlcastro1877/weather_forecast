@@ -4,6 +4,7 @@ const cityInput = document.querySelector(".cityInput");
 const card = document.querySelector(".card");
 const apiKey = "77a60fde9123837e97948e31963ac6dd";
 
+// Variables for 5 days of forecast
 const cityCard1 = document.querySelector(".cityCard1");
 const tempCard1 = document.querySelector(".tempCard1");
 const humCard1 = document.querySelector(".humCard1");
@@ -34,6 +35,7 @@ const humCard5 = document.querySelector(".humCard5");
 const windCard5 = document.querySelector(".windCard5");
 const dateCard5 = document.querySelector(".dateCard5");
 
+//Variables for historic of 5 latest cities.
 const historic1 = document.querySelector(".city1");
 const historic2 = document.querySelector(".city2");
 const historic3 = document.querySelector(".city3");
@@ -42,14 +44,16 @@ const historic5 = document.querySelector(".city5");
 
 const historicCities = [];
 
+//Fire up the app right after clicked on submit button (Get Weather Button)
 weatherForm.addEventListener("submit", async (event) => {
   event.preventDefault();
 
-  // cityCard1.textContent = `Temperatura1`;
+  //Get the city input on the field City
   const city = cityInput.value;
 
   if (city) {
     try {
+      //Call function getWeatherDataGeo to get the latitute and longitute of the city
       const weatherDataGeo = await getWeatherDataGeo(city);
       displayWeatherInfoGeo(weatherDataGeo);
     } catch (error) {
@@ -61,26 +65,23 @@ weatherForm.addEventListener("submit", async (event) => {
   }
 });
 
+//Function to get the latitute and Longitude of the city.
 async function getWeatherDataGeo(city) {
   const apiUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=${apiKey}`;
 
-  // historicCities.push(city);
-  // console.log(historicCities);
+  const response = await fetch(apiUrl);
 
-  // //gravo no localstorage as cidades
+  //Stored on the LocalStorage the cities input.
   const historic = {
     cityHistoric: city,
   };
 
+  localStorage.setItem("historic", JSON.stringify(historic));
+
+  //store in an array the cities in the localStorage to use on the historic cities searched weather
   historicCities.push(historic.cityHistoric);
 
-  // console.log("mostra o array");
-  console.log(historicCities);
-
-  // localStorage.setItem("historic", JSON.stringify(historic));
-
-  const response = await fetch(apiUrl);
-
+  //If there is no issue return json
   if (!response.ok) {
     throw new Error("Could not fetch weather data");
   }
@@ -88,12 +89,15 @@ async function getWeatherDataGeo(city) {
   return await response.json();
 }
 
+//Function to get the weather of the city using the latitute and longitude
 async function displayWeatherInfoGeo(dataGeo) {
+  //Storing the data such city names, latitute and longitude
   const name = dataGeo[0].name;
   const latitute = dataGeo[0].lat;
   const longitude = dataGeo[0].lon;
 
   try {
+    //Call Api to get the weather data using latitute, longitude
     const weatherData = await getWeatherData(name, latitute, longitude);
     displayWeatherInfo(weatherData);
   } catch (error) {
@@ -101,6 +105,7 @@ async function displayWeatherInfoGeo(dataGeo) {
     displayError(error);
   }
 
+  //Api Call with lon and lat.
   async function getWeatherData(namecity, lat, lon) {
     const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}`;
 
@@ -113,11 +118,9 @@ async function displayWeatherInfoGeo(dataGeo) {
     return await response.json();
   }
 
+  //Call the function to display data on UI.
   function displayWeatherInfo(data) {
     const dataInfo = [];
-
-    // console.log(data);
-    // console.log(data.list[0].weather[0].id);
 
     for (let i = 0; i < 40; i++) {
       let date = data.list[i].dt_txt;
@@ -149,6 +152,7 @@ async function displayWeatherInfoGeo(dataGeo) {
     displayMainCardsItems(dataInfo);
   }
 
+  //Function to display data on the main card on the UI
   function displayMainCard(name, date, wind, temp, hum, id) {
     card.textContent = "";
     card.style.display = "flex";
@@ -163,7 +167,6 @@ async function displayWeatherInfoGeo(dataGeo) {
     const displayCityCard1 = document.createElement("p");
 
     cityDisplay.textContent = name;
-    // tempDisplay.textContent = `${(temp - 273.15).toFixed(1)}°C`;
     tempDisplay.textContent = `${((temp - 273.15) * (9 / 5) + 32).toFixed(
       1
     )}°F`;
@@ -222,6 +225,7 @@ async function displayWeatherInfoGeo(dataGeo) {
     }
   }
 
+  //Function to display data on the cards for 5 days forecast
   function displayMainCardsItems(weatherDataItems) {
     console.log(weatherDataItems);
 
