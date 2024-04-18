@@ -67,7 +67,7 @@ weatherForm.addEventListener("submit", async (event) => {
 
 //Function to get the latitute and Longitude of the city.
 async function getWeatherDataGeo(city) {
-  const apiUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=${apiKey}`;
+  const apiUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=${apiKey}`;
 
   const response = await fetch(apiUrl);
 
