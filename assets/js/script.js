@@ -138,26 +138,12 @@ async function displayWeatherInfoGeo(dataGeo) {
       }
     }
 
-    // console.log(historicCities);
-
-    // displayMainCard(
-    //   dataInfo[0],
-    //   dataInfo[1],
-    //   dataInfo[2],
-    //   dataInfo[3],
-    //   dataInfo[4],
-    //   dataInfo[5]
-    // );
-
-    // console.log(dataInfo[0]);
-
     displayMainCardsItems(dataInfo);
 
     currentData(dataInfo[0]);
   }
 
   async function currentData(city) {
-    // console.log("entrou na funcao");
     if (city) {
       try {
         const weatherData = await getCurrentWeatherData(city);
@@ -172,9 +158,6 @@ async function displayWeatherInfoGeo(dataGeo) {
   }
 
   async function getCurrentWeatherData(city) {
-    // console.log("Entrou na parte da API");
-    // console.log(city);
-
     const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
 
     const response = await fetch(apiUrl);
@@ -188,9 +171,6 @@ async function displayWeatherInfoGeo(dataGeo) {
 
   //Function to display data on the main card on the UI
   function displayMainCard(data) {
-    console.log("Entrou na parte da de montar o main card");
-    console.log(data);
-
     const {
       name: city,
       main: { temp, humidity },
@@ -259,8 +239,6 @@ async function displayWeatherInfoGeo(dataGeo) {
 
   //Function to display data on the cards for 5 days forecast
   function displayMainCardsItems(weatherDataItems) {
-    // console.log(weatherDataItems);
-
     dateCard1.textContent = weatherDataItems[1];
     windCard1.textContent = `Wind: ${weatherDataItems[2]}`;
     tempCard1.textContent = `${(
