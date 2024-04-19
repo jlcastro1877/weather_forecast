@@ -1,11 +1,20 @@
 # weather_forecast
-
-# weather_forecast
-
 This is an application that displays the current temperature, humidity, wind, and date for a city that you choose.
+
 When you click the "Get Weather" button, the city name is used to call an API to get the latitude and longitude.
+
 The latitude and longitude are then used to call another API to get the weather data.
+
 The data is displayed on the UI, and below the main card are 5 cards containing the forecast for the next 5 days.
+
+This is an application that displays the current temperature, humidity, wind, and date for a city that you choose. 
+
+When you click the "Get Weather" button, the city name is used to call an API to get the latitude and longitude. 
+
+The latitude and longitude are then used to call another API to get the weather data. 
+
+The data is displayed on the UI, and below the main card are 5 cards containing the forecast for the next 5 days. 
+
 Below the Weather Dashboard header are the 5 most recently searched cities.
 And using the ID of the weather condition I can get the icon to make a visualization of the condition showing the Icon on the main card on the UI.
 
