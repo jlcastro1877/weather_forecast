@@ -138,42 +138,81 @@ async function displayWeatherInfoGeo(dataGeo) {
       }
     }
 
-    console.log(historicCities);
+    // console.log(historicCities);
 
-    displayMainCard(
-      dataInfo[0],
-      dataInfo[1],
-      dataInfo[2],
-      dataInfo[3],
-      dataInfo[4],
-      dataInfo[5]
-    );
+    // displayMainCard(
+    //   dataInfo[0],
+    //   dataInfo[1],
+    //   dataInfo[2],
+    //   dataInfo[3],
+    //   dataInfo[4],
+    //   dataInfo[5]
+    // );
+
+    // console.log(dataInfo[0]);
 
     displayMainCardsItems(dataInfo);
+
+    currentData(dataInfo[0]);
+  }
+
+  async function currentData(city) {
+    // console.log("entrou na funcao");
+    if (city) {
+      try {
+        const weatherData = await getCurrentWeatherData(city);
+        displayMainCard(weatherData);
+      } catch (error) {
+        console.log(error);
+        displayError(error);
+      }
+    } else {
+      displayError("Please enter a city.");
+    }
+  }
+
+  async function getCurrentWeatherData(city) {
+    // console.log("Entrou na parte da API");
+    // console.log(city);
+
+    const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
+
+    const response = await fetch(apiUrl);
+
+    if (!response.ok) {
+      throw new Error("Could not fetch weather data");
+    }
+
+    return await response.json();
   }
 
   //Function to display data on the main card on the UI
-  function displayMainCard(name, date, wind, temp, hum, id) {
+  function displayMainCard(data) {
+    console.log("Entrou na parte da de montar o main card");
+    console.log(data);
+
+    const {
+      name: city,
+      main: { temp, humidity },
+      weather: [{ description, id }],
+    } = data;
+
     card.textContent = "";
     card.style.display = "flex";
+    //HTML Elements on the class card.
     const cityDisplay = document.createElement("h1");
     const tempDisplay = document.createElement("p");
     const humidityDisplay = document.createElement("p");
     const descDisplay = document.createElement("p");
     const weatherEmoji = document.createElement("p");
-    const windDisplay = document.createElement("p");
-    const dateDisplay = document.createElement("p");
 
-    const displayCityCard1 = document.createElement("p");
-
-    cityDisplay.textContent = name;
+    cityDisplay.textContent = city;
+    // tempDisplay.textContent = `${(temp - 273.15).toFixed(1)}°C`;
     tempDisplay.textContent = `${((temp - 273.15) * (9 / 5) + 32).toFixed(
       1
     )}°F`;
-
-    humidityDisplay.textContent = `Humidity: ${hum}%`;
-    windDisplay.textContent = `Wind: ${wind}`;
-    dateDisplay.textContent = `Date: ${date}`;
+    humidityDisplay.textContent = `Humidity: ${humidity}%`;
+    descDisplay.textContent = description;
     weatherEmoji.textContent = getWeatherEmoji(id);
 
     historic1.textContent = historicCities[0];
@@ -186,8 +225,6 @@ async function displayWeatherInfoGeo(dataGeo) {
     cityDisplay.classList.add("cityDisplay");
     tempDisplay.classList.add("tempDisplay");
     humidityDisplay.classList.add("humidityDisplay");
-    windDisplay.classList.add("windDisplay");
-    dateDisplay.classList.add("dateDisplay");
     descDisplay.classList.add("descDisplay");
     weatherEmoji.classList.add("weatherEmoji");
 
@@ -195,14 +232,9 @@ async function displayWeatherInfoGeo(dataGeo) {
     card.appendChild(cityDisplay);
     card.appendChild(tempDisplay);
     card.appendChild(humidityDisplay);
-    card.appendChild(windDisplay);
-    card.appendChild(dateDisplay);
     card.appendChild(descDisplay);
     card.appendChild(weatherEmoji);
-
-    cityDisplay.textContent = "";
   }
-
   // //Emoji function using weather code for each emoji
   function getWeatherEmoji(weatherId) {
     switch (true) {
@@ -227,7 +259,7 @@ async function displayWeatherInfoGeo(dataGeo) {
 
   //Function to display data on the cards for 5 days forecast
   function displayMainCardsItems(weatherDataItems) {
-    console.log(weatherDataItems);
+    // console.log(weatherDataItems);
 
     dateCard1.textContent = weatherDataItems[1];
     windCard1.textContent = `Wind: ${weatherDataItems[2]}`;
